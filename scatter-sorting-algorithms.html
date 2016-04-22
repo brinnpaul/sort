@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<HTML>
+  <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="./bubblesort.js"></script>
+
+  <body>
+    <div id="container"></div>
+    <div id="inputContainer">
+      <h1>Power of Two Elements to Sort</h1>
+      <input type="text" name="number" id="userInput">
+      <input type="submit" name="Submit" id="submit">
+    </div>
+    <script>
+(function() {
+    var result = timeData();
+    var native = result[0];
+    var bubble = result[1];
+    var merge = result[2];
+
+    var options = {
+      chart: {
+          type: 'scatter',
+          zoomType: 'xy'
+      },
+      title: {
+          text: 'Time Complexity vs Array Length: Sorting Algorithms'
+      },
+      subtitle: {
+          text: 'Brinn & John: The Amazing Data Cavaliers!'
+      },
+      xAxis: {
+          title: {
+              enabled: true,
+              text: 'Arguments'
+          },
+          startOnTick: true,
+          endOnTick: true,
+          showLastLabel: true
+      },
+      yAxis: {
+          title: {
+              text: 'Time (ms)'
+          }
+      },
+      legend: {
+          layout: 'vertical',
+          align: 'left',
+          verticalAlign: 'top',
+          x: 100,
+          y: 70,
+          floating: true,
+          backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
+          borderWidth: 1
+      },
+      plotOptions: {
+          series: {
+            lineWidth: 1
+          },
+          scatter: {
+              marker: {
+                  radius: 5,
+                  states: {
+                      hover: {
+                          enabled: true,
+                          lineColor: 'rgb(100,100,100)'
+                      }
+                  }
+              },
+              states: {
+                  hover: {
+                      marker: {
+                          enabled: false
+                      }
+                  }
+              },
+              tooltip: {
+                  headerFormat: '<b>{series.name}</b><br>',
+                  pointFormat: '{point.x} cm, {point.y} kg'
+              }
+          }
+      },
+      series: [{
+          name: 'Native',
+          color: 'rgba(223, 83, 83, .5)',
+          data: native
+
+      }, {
+          name: 'bubbleSort',
+          color: 'rgba(119, 152, 191, .5)',
+          data: bubble
+      }, {
+          name: 'mergeSort',
+          color: 'rgba(119, 152, 191, .5)',
+          data: merge
+      }]
+  };
+
+  $('#container').highcharts(options);
+  ////
+
+    $('#submit').on('click', function() {
+      var value = $('#userInput').val();
+      var result = timeData(value);
+
+        options.series = [{
+              name: 'Native',
+              color: 'rgba(223, 83, 83, .5)',
+              data: result[0]
+
+          }, {
+              name: 'bubbleSort',
+              color: 'rgba(119, 152, 191, .5)',
+              data: result[1]
+          }, {
+              name: 'mergeSort',
+              color: 'rgba(119, 152, 191, .5)',
+              data: result[2]
+          }];
+        $('#container').highcharts(options);
+    });
+
+    })();
+  </script>
+</body>
+</HTML>

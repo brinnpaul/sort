@@ -2,14 +2,24 @@ function mergeSort(arr) {
   if (arr.length < 2) {
     return arr;
   }
+  // function split(arr) {
+  //   var middle = Math.floor(arr.length/2);
+  //   var left = arr.slice(0,middle);
+  //   var right = arr.slice(middle);
+  //   return [left, right];
+  // }
+  var splitArr = split(arr)
+  return merge(mergeSort(splitArr[0]), mergeSort(splitArr[1]));
+}
+
+function split(arr) {
   var middle = Math.floor(arr.length/2);
   var left = arr.slice(0,middle);
   var right = arr.slice(middle);
-
-  return combine(mergeSort(left), mergeSort(right));
+  return [left, right];
 }
 
-function combine(left, right) {
+function merge(left, right) {
   var result = [];
   var i = 0;
   var j = 0;
